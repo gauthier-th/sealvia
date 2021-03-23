@@ -1,0 +1,12 @@
+{
+  "name": "sealvia",
+  "displayName": "sealvia",
+  "expo": {
+    "name": "sealvia",
+    "slug": "sealvia",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
