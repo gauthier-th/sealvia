@@ -7,6 +7,22 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "splash": {
+      "image": "./assets/icon.png",
+      "backgroundColor": "#2BA4AC"
+    }
+  },
+  "android": {
+    "package": "fr.gauthierthomas.sealvia",
+    "versionCode": 1,
+    "adaptiveIcon": {
+      "foregroundImage": "./assets/icon.png",
+      "backgroundColor": "#2BA4AC"
+    }
+  },
+  "ios": {
+    "bundleIdentifier": "fr.gauthierthomas.sealvia",
+    "buildNumber": "1.0.0"
   }
 }
