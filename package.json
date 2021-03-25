@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@gauthier-th/divia-api-v2": "^2.0.7",
+    "@react-native-async-storage/async-storage": "^1.14.1",
     "@react-native-community/masked-view": "0.1.10",
     "@react-native-community/netinfo": "5.9.7",
     "@react-native-picker/picker": "1.9.2",
@@ -23,6 +24,7 @@
     "react-dom": "16.13.1",
     "react-native": "~0.63.4",
     "react-native-gesture-handler": "~1.8.0",
+    "react-native-get-random-values": "^1.6.0",
     "react-native-reanimated": "~1.13.0",
     "react-native-safe-area-context": "3.1.9",
     "react-native-screens": "~2.15.2",

@@ -4,7 +4,7 @@ import { View, Text, Button, Colors, RadioGroup, RadioButton } from 'react-nativ
 import { Picker } from '@react-native-picker/picker';
 import { Context } from '../GlobalStore';
 
-export default function StopSelector({ navigation }) {
+export default function StopSelector({ navigation, route }) {
   const { diviaApi } = useContext(Context);
   const [line, setLine] = useState(diviaApi.lines[0].id);
   const [direction, setDirection] = useState('A');
@@ -39,7 +39,11 @@ export default function StopSelector({ navigation }) {
   const getOtherDirection = (id) => {
     const ln1 = diviaApi.getLine(id);
     return diviaApi.lines.find(ln => ln.codetotem === ln1.data.codetotem && ln.senstotem !== ln1.data.senstotem);
-  }
+  };
+
+  const goBack = () => {
+    navigation.navigate('Home', { stopSelector: { line, stop, direction } });
+  };
 
   return <ScrollView style={styles.container}>
     <View style={styles.content}>
@@ -87,7 +91,7 @@ export default function StopSelector({ navigation }) {
           style={styles.button}
           label="Valider"
           outline
-          onPress={() => navigation.goBack()}
+          onPress={goBack}
         />
       </View>
     </View>
