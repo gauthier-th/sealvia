@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { StyleSheet, ScrollView, ActivityIndicator, RefreshControl } from 'react-native';
 import { View, ConnectionStatusBar, Text, Button, Colors, Card } from 'react-native-ui-lib';
 import Constants from 'expo-constants';
 import { Context } from '../GlobalStore';
-import { AntDesign } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
+import { AntDesign, FontAwesome } from '@expo/vector-icons';
 
 const plusIcon = require('../../assets/icons/plus.png');
 

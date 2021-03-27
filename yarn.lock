@@ -1277,15 +1277,14 @@
     pouchdb-collections "^1.0.1"
     tiny-queue "^0.2.1"
 
-"@gauthier-th/divia-api-v2@^2.0.7":
-  version "2.0.7"
-  resolved "https://npm.pkg.github.com/download/@gauthier-th/divia-api-v2/2.0.7/188886a9be2bec29d82f1dcf2b2a1ea186b9ebf7cec5ce6104ca204352c06e98#34a48707e9602c4e9fd4cf1c07f8cd3cf9dcadd0"
-  integrity sha512-HVbVBl4sCuJmvIXcnf97sV/KtvpM4NzPVykhw1NJL0mDh4xUucGzaR0LTMmrk2Vgsr9jn7rHo6e0XjYXLLMKzA==
+"@gauthier-th/divia-api-v2@^2.0.8":
+  version "2.0.8"
+  resolved "https://npm.pkg.github.com/download/@gauthier-th/divia-api-v2/2.0.8/2122b0ed49242a8fe84497c759b041f5097a842ebb33f97ce91c32aa94a4aa79#8bc68bb77248368362f723bb9fa4a49459989437"
+  integrity sha512-IENg9Q55Q0Eqsxb6ByhNinxk4SiFztqcijJZQWDseeWT7V+kyh3M+eZYIRWSFGsgg9JLIeRfupz+8Ymq8qnXfg==
   dependencies:
     isomorphic-unfetch "^3.1.0"
     jsonwebtoken "^8.5.1"
     jwt-decode "^3.1.2"
-    uuid "^8.3.2"
 
 "@hapi/address@2.x.x":
   version "2.1.4"
@@ -3981,11 +3980,6 @@ fancy-log@^1.3.2:
     color-support "^1.1.3"
     parse-node-version "^1.0.0"
     time-stamp "^1.0.0"
-
-fast-base64-decode@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/fast-base64-decode/-/fast-base64-decode-1.0.0.tgz#b434a0dd7d92b12b43f26819300d2dafb83ee418"
-  integrity sha512-qwaScUgUGBYeDNRnbc/KyllVU88Jk1pRHPStuF/lO7B0/RTRLj7U0lkdTAutlBblY08rwZDff6tNU9cjv6j//Q==
 
 fast-deep-equal@^3.1.1:
   version "3.1.3"
@@ -7066,13 +7060,6 @@ react-native-gesture-handler@~1.8.0:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
-react-native-get-random-values@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/react-native-get-random-values/-/react-native-get-random-values-1.6.0.tgz#9035636b2dc2a6d574f2803205381fe1a7b5c864"
-  integrity sha512-sPTRTJk4bpuZeTBf6d7DldQGAOCi0GZh5NxzNI3eHXzxwHbNkV13Q22TehiSb3bsaVqwLC4UAa6QvYIucyyc+A==
-  dependencies:
-    fast-base64-decode "^1.0.0"
-
 react-native-iphone-x-helper@^1.3.0:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.1.tgz#20c603e9a0e765fd6f97396638bdeb0e5a60b010"
@@ -8514,11 +8501,6 @@ uuid@^7.0.3:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.3.tgz#c5c9f2c8cf25dc0a372c4df1441c41f5bd0c680b"
   integrity sha512-DPSke0pXhTZgoF/d+WSt2QaKMCFSfx7QegxEWT+JOuHF5aWrKEn0G+ztjuJg/gG8/ItK+rbPCD/yNv8yyih6Cg==
-
-uuid@^8.3.2:
-  version "8.3.2"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
-  integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
 v8-to-istanbul@^4.1.3:
   version "4.1.4"

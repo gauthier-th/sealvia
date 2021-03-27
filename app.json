@@ -1,13 +1,15 @@
 {
   "name": "sealvia",
-  "displayName": "sealvia",
+  "displayName": "Sealvia",
   "expo": {
-    "name": "sealvia",
+    "name": "Sealvia",
+    "description": "An tiny application to get Divia informations.",
     "slug": "sealvia",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
     ],
+    "icon": "./assets/images/icon.png",
     "splash": {
       "image": "./assets/images/icon.png",
       "backgroundColor": "#2BA4AC"

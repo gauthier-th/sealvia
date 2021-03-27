@@ -1,4 +1,3 @@
-import 'react-native-get-random-values'
 import React, { useState, useContext } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import AppLoading from 'expo-app-loading';
@@ -11,10 +10,6 @@ import StopSelector from './components/StopSelector';
 import FavoritesOrder from './components/FavoritesOrder';
 
 const Stack = createStackNavigator();
-
-const screenOptions = {
-  // headerTitleAlign: 'center'
-};
 
 export default function App() {
   const { diviaApi } = useContext(Context);
@@ -53,9 +48,9 @@ export default function App() {
       <StatusBar style='auto' />
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name='Home' component={Home} options={{ ...screenOptions, title: 'Sealvia', headerShown: false }} />
-          <Stack.Screen name='StopSelector' component={StopSelector} options={{ ...screenOptions, title: 'Sélectionnez un arrêt' }} />
-          <Stack.Screen name='FavoritesOrder' component={FavoritesOrder} options={{ ...screenOptions, title: 'Ordre des favoris' }} />
+          <Stack.Screen name='Home' component={Home} options={{ title: 'Sealvia', headerShown: false }} />
+          <Stack.Screen name='StopSelector' component={StopSelector} options={{ title: 'Sélectionnez un arrêt' }} />
+          <Stack.Screen name='FavoritesOrder' component={FavoritesOrder} options={{ title: 'Ordre des favoris' }} />
         </Stack.Navigator>
       </NavigationContainer>
     </>}

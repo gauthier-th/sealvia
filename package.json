@@ -1,5 +1,6 @@
 {
   "main": "index.js",
+  "description": "Une petite application pour récupérer les informations de Divia",
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
@@ -7,8 +8,15 @@
     "start": "react-native start",
     "test": "jest"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gauthier-th/divia-api.git"
+  },
+  "author": "gauthier-th (mail@gauthierth.fr)",
+  "license": "MIT",
   "dependencies": {
-    "@gauthier-th/divia-api-v2": "^2.0.7",
+    "@expo/vector-icons": "^12.0.0",
+    "@gauthier-th/divia-api-v2": "^2.0.8",
     "@react-native-async-storage/async-storage": "^1.14.1",
     "@react-native-community/masked-view": "0.1.10",
     "@react-native-community/netinfo": "5.9.7",
@@ -25,7 +33,6 @@
     "react-native": "~0.63.4",
     "react-native-draggable-flatlist": "^2.5.4",
     "react-native-gesture-handler": "~1.8.0",
-    "react-native-get-random-values": "^1.6.0",
     "react-native-reanimated": "~1.13.0",
     "react-native-safe-area-context": "3.1.9",
     "react-native-screens": "~2.15.2",
@@ -42,5 +49,9 @@
   "jest": {
     "preset": "react-native"
   },
-  "private": true
+  "private": false,
+  "bugs": {
+    "url": "https://github.com/gauthier-th/sealvia/issues"
+  },
+  "homepage": "https://github.com/gauthier-th/sealvia#readme"
 }
