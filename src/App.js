@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import GlobalStore, { Context } from './GlobalStore';
 import Home from './components/Home';
 import StopSelector from './components/StopSelector';
+import FavoritesOrder from './components/FavoritesOrder';
 
 const Stack = createStackNavigator();
 
@@ -52,8 +53,9 @@ export default function App() {
       <StatusBar style='auto' />
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name='Home' component={Home} options={{ ...screenOptions, title: 'Sealvia', headerShown: false }} initialParams={{ diviaApi }} />
-          <Stack.Screen name='StopSelector' component={StopSelector} options={{ ...screenOptions, title: 'Sélectionnez un arrêt' }} initialParams={{ diviaApi }} />
+          <Stack.Screen name='Home' component={Home} options={{ ...screenOptions, title: 'Sealvia', headerShown: false }} />
+          <Stack.Screen name='StopSelector' component={StopSelector} options={{ ...screenOptions, title: 'Sélectionnez un arrêt' }} />
+          <Stack.Screen name='FavoritesOrder' component={FavoritesOrder} options={{ ...screenOptions, title: 'Ordre des favoris' }} />
         </Stack.Navigator>
       </NavigationContainer>
     </>}

@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { StyleSheet, ScrollView, ActivityIndicator, RefreshControl } from 'react-native';
 import { View, ConnectionStatusBar, Text, Button, Colors, Card } from 'react-native-ui-lib';
 import Constants from 'expo-constants';
 import { Context } from '../GlobalStore';
 import { AntDesign } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 
 const plusIcon = require('../../assets/icons/plus.png');
-
-ConnectionStatusBar.registerGlobalOnConnectionLost();
 
 export default function Home({ navigation, route }) {
   const [refreshing, setRefreshing] = useState(false);
@@ -19,15 +18,15 @@ export default function Home({ navigation, route }) {
   useEffect(() => {
     database.listFavorite()
       .then(result => setFavorites(result.rows._array))
-      .catch(() => {});
+      .catch(e => console.error(e) || setFavorites([]));
   }, []);
-
+ 
   useEffect(() => {
     if (route.params?.stopSelector) {
-      const { line, stop, direction } = route.params?.stopSelector;
-      if (favorites.find(fav => fav.line === line && fav.stop === stop && fav.direction === direction))
+      const { line, stop, code, direction } = route.params?.stopSelector;
+      if (favorites.find(fav => fav.line === line && fav.stop === stop))
         return;
-      database.addFavorite(line, stop, direction).then(({ insertId: id }) => {
+      database.addFavorite(line, stop, code, direction).then(({ insertId: id }) => {
         setFavorites([
           ...favorites,
           { id, line, stop, direction }
@@ -35,6 +34,14 @@ export default function Home({ navigation, route }) {
       });
     }
   }, [route.params?.stopSelector]);
+ 
+  useEffect(() => {
+    if (route.params?.favoriteOrder) {
+      database.listFavorite()
+        .then(result => setFavorites(result.rows._array))
+        .catch(e => console.error(e) || setFavorites([]));
+    }
+  }, [route.params?.favoriteOrder]);
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -43,7 +50,7 @@ export default function Home({ navigation, route }) {
   setTimeout(() => setRefreshing(false), 1000);
 
   return <ScrollView
-    refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+    refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={[ Colors.blue20 ]} />}
     style={{ ...styles.container, ...(isConnected ? {} : { paddingTop: 35 }) }}
   >
     <ConnectionStatusBar
@@ -52,36 +59,50 @@ export default function Home({ navigation, route }) {
     />
     <View style={styles.content}>
       <View style={styles.category}>
-        <Text text50>Bienvenue</Text>
+        <Text text50>{getGreetings()}</Text>
       </View>
       <View style={styles.category} left>
-        <Text text50 style={{ marginBottom: 16 }}>Favoris</Text>
+        <View flex row spread marginB-16 style={{ width: '100%' }}>
+          <Text text50>Favoris</Text>
+          <View flex row right style={{ marginTop: -10 }}>
+            {favorites && favorites.length > 1 && <Button
+              round
+              outlineColor={Colors.blue20}
+              outline
+              onPress={() => navigation.navigate('FavoritesOrder', { favorites })}
+            >
+              <FontAwesome name="sort-amount-asc" size={20} color={Colors.blue20} />
+            </Button>}
+            <Button
+              marginL-8
+              round
+              outlineColor={Colors.blue20}
+              outline
+              iconSource={plusIcon}
+              onPress={() => navigation.navigate('StopSelector')}
+            />
+          </View>
+        </View>
         {favorites === null && <>
           <ActivityIndicator size='large' color={Colors.blue20} />
         </>}
-        {favorites !== null && <>
+        {favorites !== null && favorites.length === 0 && <>
+          <View left style={{ width: '100%' }}>
+            <Text text70>Aucun favori pour le moment.</Text>
+            <Button
+              marginT-10
+              style={{ borderRadius: 10 }}
+              outlineColor={Colors.blue20}
+              outline
+              label='Nouveau favori'
+              onPress={() => navigation.navigate('StopSelector')}
+            />
+          </View>
+        </>}
+        {favorites !== null && favorites.length > 0 && <>
           <View flex row spread style={{ margin: -5, flexWrap: 'wrap' }}>
             {favorites.map(favorite => <PassageCard key={favorite.id} favorite={favorite} diviaApi={diviaApi} refreshing={refreshing} />)}
           </View>
-          <Button
-            outlineColor={Colors.blue20}
-            style={styles.button}
-            label='Nouveau favori'
-            outline
-            iconSource={plusIcon}
-            onPress={() => navigation.navigate('StopSelector', {
-              // onGoBack: async (line, stop, direction) => {
-              //   if (favorites.find(fav => fav.line === line && fav.stop === stop && fav.direction === direction))
-              //     return;
-              //   database.addFavorite(line, stop, direction).then(({ insertId: id }) => {
-              //     setFavorites([
-              //       ...favorites,
-              //       { id, line, stop, direction }
-              //     ])
-              //   });
-              // }
-            })}
-          />
         </>}
       </View>
     </View>
@@ -112,34 +133,32 @@ const PassageCard = ({ favorite, diviaApi, refreshing }) => {
       row
       margin-5
       style={{ height: 'auto' }}
-      onPress={() => {}}
       borderRadius={10}
       useNative
       backgroundColor={Colors.white}
       activeOpacity={1}
       // activeScale={0.96}
     >
-      <View paddingH-10 paddingV-10>
+      <View paddingH-10 paddingV-10 style={{ width: '100%' }}>
         <Text text60 grey10>
           {line.data.nom_commercial} - {stop.data.nom}
         </Text>
         <View row marginT-5>
-          <AntDesign name="arrowright" size={24} color="black" />
-          <Text text70 grey10 marginL-6>{line.data.direction}</Text>
+          <AntDesign name="arrowright" size={20} color="black" />
+          <Text text75 grey10 marginL-4>{line.data.direction}</Text>
         </View>
-        <View row spread marginT-5>
+        <View row marginT-5 style={{ justifyContent: 'space-evenly' }}>
           {(() => {
             if (passages === null)
-              return <ActivityIndicator size='small' color={Colors.blue20} />;
+              return <ActivityIndicator size='small' color={Colors.blue20} marginT-8 />;
             else if (passages.length === 0)
               return <Text>Aucun passage.</Text>;
             else {
               return passages.map(passage => (
-                <Text key={passage['@id']} text65>{passage.duree}</Text>
+                <Text key={passage['@id']} text65 color={Colors.blue10}>{passage.duree}</Text>
               ));
             }
           })()}
-          <Text></Text>
         </View>
       </View>
     </Card>
@@ -155,9 +174,12 @@ const styles = StyleSheet.create({
   },
   category: {
     marginVertical: 10
-  },
-  button: {
-    marginVertical: 10,
-    borderRadius: 10
   }
 });
+
+function getGreetings() {
+  if (new Date().getHours() > 18 || new Date().getHours() < 5)
+    return 'Bonsoir';
+  else
+    return 'Bonjour';
+}

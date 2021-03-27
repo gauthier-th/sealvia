@@ -14,7 +14,7 @@
     }
   },
   "android": {
-    "package": "fr.gauthierthomas.sealvia",
+    "package": "fr.gauthierth.sealvia",
     "versionCode": 1,
     "adaptiveIcon": {
       "foregroundImage": "./assets/images/icon.png",
@@ -22,7 +22,7 @@
     }
   },
   "ios": {
-    "bundleIdentifier": "fr.gauthierthomas.sealvia",
+    "bundleIdentifier": "fr.gauthierth.sealvia",
     "buildNumber": "1.0.0"
   }
 }

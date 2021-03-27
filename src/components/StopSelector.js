@@ -1,4 +1,4 @@
-import React, { useState, useContext, useMemo } from 'react';
+import React, { useEffect, useState, useContext, useMemo } from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
 import { View, Text, Button, Colors, RadioGroup, RadioButton } from 'react-native-ui-lib';
 import { Picker } from '@react-native-picker/picker';
@@ -40,9 +40,39 @@ export default function StopSelector({ navigation, route }) {
     const ln1 = diviaApi.getLine(id);
     return diviaApi.lines.find(ln => ln.codetotem === ln1.data.codetotem && ln.senstotem !== ln1.data.senstotem);
   };
+  const getDirectionLines = (id) => {
+    const originalLine = diviaApi.getLine(id);
+    const ln1 = diviaApi.lines.find(ln => ln.codetotem === originalLine.data.codetotem && ln.senstotem === 'A');
+    const ln2 = diviaApi.lines.find(ln => ln.codetotem === originalLine.data.codetotem && ln.senstotem === 'R');
+    return [ln1, ln2];
+  };
+
+  const changeDirection = (dir) => {
+    if (dir && dir !== direction) {
+      const ln = getOtherDirection(line);
+      setLine(ln.id);
+      setDirection(dir);
+
+      const orignalStop = diviaApi.getLine(line).getStop(stop);
+      const newStop = diviaApi.getLine(ln.id).stops.find(st => st.nom === orignalStop.data.nom);
+      if (newStop)
+        setStop(newStop.id)
+      else
+        setStop(diviaApi.getLine(ln.id).stops[0].id);
+    }
+  };
+
+  const updateStop = (ln) => {
+    const orignalStop = diviaApi.getLine(line).getStop(stop);
+    const newStop = diviaApi.getLine(ln).stops.find(st => st.nom === orignalStop.data.nom);
+    if (newStop)
+      setStop(newStop.id)
+    else
+      setStop(diviaApi.getLine(ln).stops[0].id);
+  }
 
   const goBack = () => {
-    navigation.navigate('Home', { stopSelector: { line, stop, direction } });
+    navigation.navigate('Home', { stopSelector: { line, stop, code: diviaApi.getLine(line).data.codetotem, direction } });
   };
 
   return <ScrollView style={styles.container}>
@@ -51,7 +81,7 @@ export default function StopSelector({ navigation, route }) {
         <Text text70>Ligne :</Text>
         <Picker
           selectedValue={line}
-          onValueChange={value => setLine(value) && setStop(diviaApi.getLine(value).stops[0].id)}
+          onValueChange={value => { updateStop(value); setLine(value); }}
           mode='dropdown'
           style={styles.dropdown}
         >
@@ -64,12 +94,12 @@ export default function StopSelector({ navigation, route }) {
         <RadioGroup
           initialValue={direction}
           value={direction}
-          onValueChange={setDirection}
+          onValueChange={changeDirection}
           style={{ marginVertical: 16 }}
           color={Colors.blue20}
         >
-          <RadioButton value='A' label={diviaApi.getLine(line).data.direction} />
-          <RadioButton value='R' label={getOtherDirection(line).direction} style={{ marginTop: 8 }} labelStyle={{ marginTop: 8 }} />
+          <RadioButton value='A' label={getDirectionLines(line)[0].direction} />
+          <RadioButton value='R' label={getDirectionLines(line)[1].direction} style={{ marginTop: 8 }} labelStyle={{ marginTop: 8 }} />
         </RadioGroup>
       </View>
 
